@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アプリ履歴</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <p>アプリケーション一覧</p>
+  <ul>
+    <li th:each="app:${appList}">
+      <a th:href="@{/billinghistory/__${app.application}__}" th:text=${app.application}></a>
+    </li>
+  </ul>
+  <p>今月の課金額：<span th:text="${sumOfThisMonth}"></span>円（前月比：<span th:text="${mom}"></span>%）<br>
+  累計総課金額：<span th:text="${sumBilling}"></span>円</p>
+  <a th:href="@{/input}">入力画面へ</a>
+</body>
+</html>

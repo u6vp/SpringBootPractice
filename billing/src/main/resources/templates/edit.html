@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>編集画面</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <script th:src="@{/js/textform-trigger.js}"></script>
+</head>
+<body>
+  <form th:action="@{/}" method="post" th:object="${billingData}">
+    <input type="hidden" th:field="*{id}">
+    課金日<br>
+    <input type="text" name="date" style="width:100px;" th:value="*{date}">
+    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" th:errorclass="red" style="display: inline-block;"></div>
+    <br>課金額<br>
+    <input type="number" name="billing" style="width:100px;" th:value="*{billing}" min="-100000" max="100000" step="500">円
+    <div th:if="${#fields.hasErrors('billing')}" th:errors="*{billing}" th:errorclass="red" style="display: inline-block;"></div>
+    <br>アプリ名<br>
+    <select id="select_app">
+      <option value="-1">-</option>
+      <option th:each="app:${appList}" th:value="${app.id}" th:field="*{application}" th:text="${app.application}"></option>
+    </select>
+    <input id="new_app" type="text" name="application" size="15" th:value="*{application}">
+    <br>ガチャ結果（任意）<br>
+    <select name="result">
+      <option value="-" th:field="*{result}">-</option>
+      <option value="普通" th:field="*{result}">普通</option>
+      <option value="当たり" th:field="*{result}">当たり</option>
+      <option value="爆死" th:field="*{result}">爆死</option>
+    </select>
+    <br>備考<br>
+    <textarea name="remarks" id="" cols="30" rows="4" th:value="*{remarks}" th:field="*{remarks}"></textarea>
+    <br>
+    <button type="submit" th:formaction="@{/result}">変更</button>
+  </form>
+  <a th:href="@{/billinghistory/__${billingData.application}__}">履歴画面へ</a>
+</body>
+</html>

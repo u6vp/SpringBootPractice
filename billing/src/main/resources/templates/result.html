@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>結果画面</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <p>以下の内容で登録しました．</p>
+  <table border="1">
+    <tr>
+      <th>課金日</th>
+      <th>課金額</th>
+      <th>アプリ名</th>
+      <th>結果</th>
+      <th>備考</th>
+    </tr>
+    <tr th:each="billing:${billing}">
+      <td th:text="${billing.date}"></td>
+      <td th:text="${billing.billing}"></td>
+      <td th:text="${billing.application}"></td>
+      <td th:text="${billing.result}"></td>
+      <td th:text="${billing.remarks}"></td>
+    </tr>
+  </table>
+  <p>このアプリでの累計課金額：<span th:text="${sumBillingByApp}"></span>円</p>
+  <p>総課金額：<span th:text="${sumBilling}"></span>円</p>
+  <a th:href="@{/input}">入力画面へ</a> <a th:href="@{/billinghistory/__${billingData.application}__}">履歴画面へ</a>
+</body>
+</html>
